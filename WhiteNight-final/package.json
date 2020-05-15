@@ -1,0 +1,23 @@
+{
+  "name": "quickdraw-data-api",
+  "description": "An API server for Quick, Draw! Files stored in GCS",
+  "version": "0.0.1",
+  "private": true,
+  "repository": "github:osteele/quickdraw-api-server",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=13.0.0"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "deploy": "gcloud app deploy"
+  },
+  "dependencies": {
+    "@google-cloud/storage": "^1.7.0",
+    "cors": "^2.8.5",
+    "express": "4.16.2"
+  },
+  "devDependencies": {
+    "@google-cloud/nodejs-repo-tools": "^3.3.0"
+  }
+}
