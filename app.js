@@ -28,7 +28,7 @@ const maxCacheEntries = 100;
  * Description: Gets the data for a random drawing
  * @param: {String} category [the name of the Quick, Draw! category (i.e. "cat")]
  */
-app.get("/drawing/:category", async (req, res, next) => {
+app.get("/api/drawing/:category", async (req, res, next) => {
   const category = req.params.category;
   const bucketDirectory = "full/simplified";
 

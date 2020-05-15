@@ -76,18 +76,18 @@ function preload() {
   TPleftpattern = loadImage("pics/TPleftwrist.png");
 }
 function setup() {
-  
+
   myCanvas = createCanvas(window.innerWidth+300, window.innerHeight);
-  
+
   categoryName = createInput("cat");
   categoryName.style('font-size', '30px', 'color', '#4CAF50');
-  categoryName.style('width', '500px'); 
+  categoryName.style('width', '500px');
   //categoryName.style('border', '3px', 'color', '#4CAF50');
   categoryName.position(550,300);
 //------------------------------------------------------------
   video = createCapture(VIDEO);
   video.size(width, height);
-  video.hide();   
+  video.hide();
 
   poseNet = ml5.poseNet(video, modelReady);
 poseNet.on('pose', function (results) {
@@ -122,7 +122,7 @@ picture = loadImage('pics/test.jpg');
 
 function requestCategory() {
   loadJSON(
-    `http://localhost:8080/drawing/${encodeURI(categoryName.value())}`,
+    `/api/drawing/${encodeURI(categoryName.value())}`,
     drawCategory,
     (err) => alert("No such drawing. Please use lower case or change one:)")
   );
@@ -155,19 +155,19 @@ pg = createGraphics(255,255);
 function draw(){
   //image(imgTitle, 0, 0);
   clear();
-  
+
   leftwrist();
   image(imgTitle, 600, 100,imgTitle.width/2,imgTitle.height/2);
   index = 0
   strokeIndex = 0
-  
+
   if(currentDrawing){
     for(d=0;d<currentDrawing.length;d++){
-      
+
         totalStroke = totalStroke+currentDrawing[d][0].length-1;
-      
+
     }
-    
+
   }
 
 //console.log(totalStroke);
@@ -175,11 +175,11 @@ function draw(){
 //if(frameCount % 10 === 0){
   m++;
 //}
-  
+
       for (let k=0;k<m;k++){
         drawNextStroke();
       }
-  
+
   //m = 1;
   for(let i = 0;i<pgs.length;i++){
     //console.log('in loop');
@@ -203,12 +203,12 @@ if (cutDone){
   //   fill(196,214,219);
   //   ellipse(cutX,cutY,16);
     //-----------
-    
+
     let p = new Particle();
-    
+
     particles.push(p);
-  
-    
+
+
       for(m=0;m<particles.length;m++){
         if (particles.length <200){
         particles[m].update();
@@ -218,8 +218,8 @@ if (cutDone){
           particles.splice(0,particles.length);
         }
     }
-    
-} 
+
+}
 
 
   //------------------------------------------------------------
@@ -251,7 +251,7 @@ class Particle{
   }
 }
 function bodyPose(){
-//   image(picture,width/2, height/2, 255, 255); 
+//   image(picture,width/2, height/2, 255, 255);
 // let centerX = (width+255)/2;
 // let centerY = (height+255)/2;
 // image(video, 0, 0);
@@ -273,9 +273,9 @@ if (poses != undefined ) {
       y1 = poses[0].pose.keypoints[9].position.y;
       x2 = poses[0].pose.keypoints[10].position.x;
       y2 = poses[0].pose.keypoints[10].position.y;
-      
-      
-      
+
+
+
 
       if (score1 > 0 || score2 > 0) {
         noStroke();
@@ -287,39 +287,39 @@ if (poses != undefined ) {
         // text(nf(score1, 0, 2), x1 + 10, y1 + 30);
         // text(nf(score2, 0, 2), x2 + 10, y2 + 30);
       }
-    
+
     // }
     for (n = 0;n<pgs.length;n++){
       centerX = pgs[n][0]+127.5;
       centerY = pgs[n][1]+127.5;
       slice();
-      
+
     }
-    
-    
-    
+
+
+
   }
-  
+
   }
 }
 
 
 
 // if (segmentation !== undefined) {
-    
+
 //     let w = segmentation.raw.width;
 //     let h = segmentation.raw.height;
 //     let data = segmentation.raw.data;
-    
-    
-    
-    
+
+
+
+
     img.loadPixels();
-    
+
     // for (let y = 0; y < h; y++) {
     //   for (let x = 0; x < w; x++) {
     //     let index = x + y*w; // ***
-        
+
 
     //     if ( data[index] == 21 || data[index] == 23) {
     //       // if "rightHand" and "leftHand", set the color red
@@ -338,7 +338,7 @@ if (poses != undefined ) {
     //   }
     // }
     // img.updatePixels();}
-    image(img, 0, 0, width, height);  
+    image(img, 0, 0, width, height);
 }
 // a1 = lerp(a1,x1,0.3);
 
@@ -357,31 +357,31 @@ function slice(){
 //     collidePointLine(x1,y1,centerX*2,centerY*2-255,centerX*2,centerY*2,0.3) ||
 //     collidePointLine(x1,y1,centerX*2,centerY*2,centerX*2-255,centerY*2,0.3) ||
 //     collidePointLine(x1,y1,centerX*2-255,centerY*2,centerX*2-255,centerY*2-255,0.3); // hint: cannot be redefined
-  
- 
+
+
 //     if (isHit == true && wasHit == false){
 //       wasHit = true;
-      
-//         console.log("enter the picture!");         
-//         v1 = createVector(x1-centerX, y1-centerY); 
+
+//         console.log("enter the picture!");
+//         v1 = createVector(x1-centerX, y1-centerY);
 //         console.log(x1-centerX, y1-centerY);
-//         scatter();        
+//         scatter();
 //     } else if (wasHit == true && isHit == true ){
-     
+
 //       v2 = createVector(x1-centerX,y1-centerY);
- 
+
 //       angle = abs(degrees(v1.angleBetween(v2)));
-//           if(angle>90){ 
-            
+//           if(angle>90){
+
 //             // scatter();
 //             // console.log("slice!");
 //             // console.log("New location is: " + (x1-centerX,y1-centerY));
 //             // console.log("angle is" + angle);
 //             wasHit = false;
-            
-//           } 
-//           // isHit == false; 
-        
+
+//           }
+//           // isHit == false;
+
 //         }
 // }
 
@@ -390,20 +390,20 @@ function scatter(){
   cutX = pgs[n][0];
   cutY = pgs[n][1];
   // console.log(cut.x,cut.y);
-  
+
 
   // xspeed = 0;
   // yspeed = 0;
   // pgs[n].loadPixels();
-  
+
 
   // let rectSize = 5;
-    
+
   //   for (let y=centerY-127.5; y<=centerY+127.5; y+=rectSize){
   //     for (let x=centerX-127.5; x<=centerX+127.5; x+=rectSize){
   //       let w = x+y*255;
   //       // console.log(w);
-        
+
   //         // console.log(pgs[n].pixels);
   //         fill(pgs[n].pixels[w]);
   //       // fill(pgs[n].pixels[w*4],pgs[n].pixels[w*4+1],pgs[n].pixels[w*4+2]);
@@ -413,18 +413,18 @@ function scatter(){
   //   }
   //   pgs[n].updatePixels();
 
-    
+
     // console.log(cut.x,cut.y);
     cutDone = true;
     pgs.splice(n,1);
-    
-    
+
+
 }
 
 
 
 function leftwrist(){
-  
+
   image(leftpattern,x1,y1,100,100);
   // New location
   let point = {
@@ -436,12 +436,12 @@ function leftwrist(){
   if (lefttracking.length > 5) {
     lefttracking.splice(0,1);
   }
-  
+
   // Draw everything
   for (var i = 0; i < lefttracking.length; i++) {
-     // Draw an ellipse for each element in the arrays. 
+     // Draw an ellipse for each element in the arrays.
      // Color and size are tied to the loop's counter: i.
-    
+
     // noStroke();
     // fill(255-i/5);
     // ellipse(lefttracking[i].x,lefttracking[i].y,i,i);
@@ -453,18 +453,18 @@ function modelReady() {
   console.log('Model Ready!');
   // bodypix.segmentWithParts(gotResults, options);
   }
-  
+
   function gotResults(error, result) {
   if (error) {
   console.log(error);
   return;
   }
   segmentation = result;
-  
+
   //   image(cam, 0, 0, width, height);
   //   image(segmentation.image, 0, 0, width, height); // other parts except left right hands
   //  ?
-  
+
   bodypix.segmentWithParts(gotResults, options);
   }
 
@@ -518,7 +518,7 @@ function drawNextStroke() {
 
     saveDraft(pg,lastData);
 
-  
+
   }
 
   //console.log('drawing end!');
@@ -575,5 +575,3 @@ function saveDraft(surface, lastData){
   }
   pgs.push(surface);
 }
-
-
