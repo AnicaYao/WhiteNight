@@ -1,10 +1,9 @@
 "use strict";
 
 const express = require("express");
-const cors = require("cors");
 const app = express();
 
-app.use(cors());
+app.use(express.static("example"));
 
 // check the config file
 const config = require("./config.json");
@@ -22,11 +21,6 @@ const storage = new Storage(config);
 // Cache last `maxCacheEntries` drawing requests.
 const drawingCache = new Map();
 const maxCacheEntries = 100;
-
-app.get("/", (req, res, next) => {
-  const url = "https://github.com/osteele/quickdraw-api-server";
-  res.send(`See <a href="${url}">${url}</a>`);
-});
 
 /**
  * '/drawing/:category'
