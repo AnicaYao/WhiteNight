@@ -3,7 +3,7 @@
 const express = require("express");
 const app = express();
 
-app.use(express.static("example"));
+app.use(express.static("public"));
 
 // check the config file
 const config = require("./config.json");
